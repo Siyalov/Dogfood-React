@@ -1,18 +1,18 @@
-.wrapper {
-	height: 100vh;
-	display: grid;
-	grid-template-columns: repeat(2, auto);
-	align-content: center;
-	justify-content: center;
-	gap: 20px;
+body {
+  margin: 0;
+  font-family: "Nunito", "Arial", "Halvetica", sans-serif;
 }
-.card {
-	width: 100px;
-	height: 100px;
-	box-shadow: 0 0 5px 0 #222;
-	border-radius: 8px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-size: 50px;
+
+.wrapper {
+  height: 100vh;
+  display: grid;
+  background-color: white;
+}
+.cards-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 30px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
 }
