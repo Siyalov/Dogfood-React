@@ -5,7 +5,7 @@ import { ReactComponent as FavIcon } from './img/ic-favorites.svg'
 import { ReactComponent as CartIcon } from './img/ic-cart.svg'
 import { ReactComponent as ProfileIcon } from './img/ic-profile.svg'
 
-export default ({ products }) => {
+export default ({ products, update, openPopup }) => {
    const [text, changeText] = useState("");
    const [cnt, setCnt] = useState(0);
    const handler = e => {
@@ -20,7 +20,7 @@ export default ({ products }) => {
          <nav>
             <a href=""><FavIcon /></a>
             <a href=""><CartIcon /></a>
-            <a href=""><ProfileIcon /></a>
+            <a href="" onClick={e => { e.preventDefault(); openPopup(true) }}><ProfileIcon /></a>
          </nav>
       </header>
       <div>
