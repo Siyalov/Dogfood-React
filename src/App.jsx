@@ -37,19 +37,19 @@ const App = () => {
     // }, []);
 
     // 1 - regeneratorRuntime error
-    // useEffect(async () => {
-    //     let data = await api.getProducts();
-    //     setGoods(data.products);
-    //     setData(data.products);
-    // }, [])
+    useEffect(async () => {
+        let data = await api.getProducts();
+        setGoods(data.products);
+        setData(data.products);
+    }, [])
 
     // 2 - ok
-    useEffect(() => {
-        api.getProducts().then((data) => {
-            setGoods(data.products);
-            setData(data.products);
-        });
-    }, [])
+    // useEffect(() => {
+    //     api.getProducts().then((data) => {
+    //         setGoods(data.products);
+    //         setData(data.products);
+    //     });
+    // }, [])
 
     return <>
         <div className="wrapper">
