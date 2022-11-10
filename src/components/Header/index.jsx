@@ -12,6 +12,7 @@ export default ({ products, update, openPopup }) => {
       changeText(e.target.value);
       const result = products.filter((el => el.name.toLowerCase().search(e.target.value.toLowerCase()) !== -1));
       setCnt(result.length);
+      update(result);
    }
    return <>
       <header>
