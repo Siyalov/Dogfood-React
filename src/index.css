@@ -1,14 +1,15 @@
 :root {
-    --main-color:#ffe44d
+  --main-color: #ffe44d
 }
 
 body {
   margin: 0;
   font-family: "Nunito", "Arial", "Halvetica", sans-serif;
 }
+
 a {
-    text-decoration: none;
-    color: inherit;
+  text-decoration: none;
+  color: inherit;
 }
 
 .wrapper {
@@ -16,6 +17,7 @@ a {
   /* display: grid;
   background-color: white; */
 }
+
 .cards-container {
   max-width: 1200px;
   margin: auto;
