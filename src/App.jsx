@@ -21,43 +21,36 @@ const App = () => {
         setApi(new Api(token));
     }, [token])
 
-    // old
-    // useEffect(() => {
-    //     fetch("https://api.react-learning.ru/products", {
-    //         headers: {
-    //             Authorization: `Bearer ${token}`
-    //         }
-    //     })
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             setGoods(data.products)
-    //             setData(data.products)
 
-    //         });
-    // }, []);
-
-    // 1 - regeneratorRuntime error
-    useEffect(async () => {
-        let data = await api.getProducts();
-        setGoods(data.products);
-        setData(data.products);
-    }, [])
-
-    // 2 - ok
-    // useEffect(() => {
-    //     api.getProducts().then((data) => {
-    //         setGoods(data.products);
-    //         setData(data.products);
-    //     });
-    // }, [])
+    useEffect(() => {
+        if (token) {
+            api.getProducts()
+                .then(data => {
+                    setGoods(data.products || []);
+                    setData(data.products || []);
+                })
+            // console.log("Данные из сервера", data);
+            api.showProfile()
+                .then(data => {
+                    console.log("User", data);
+                    if (!data._id) {
+                        setToken('');
+                    }
+                });
+        } else {
+            setGoods([]);
+            setData([]);
+        }
+    }, [api])
 
     return <>
         <div className="wrapper">
-            <Header products={data} update={setGoods} openPopup={changePopupActive} />
+            <Header products={data} update={setGoods} openPopup={changePopupActive} user={!!token} setToken={setToken} />
             <Catalog goods={goods} />
+            {/* <Product/> */}
             <Footer />
         </div>
-        <Modal isActive={popupActive} changeActive={changePopupActive} />
+        {!token && <Modal isActive={popupActive} changeActive={changePopupActive} setToken={setToken} api={api} />}
     </>
 }
 
