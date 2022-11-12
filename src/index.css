@@ -25,13 +25,24 @@ a {
   gap: 30px;
 }
 
+.ad-card {
+  grid-column: 1 / span 4;
+}
+
 @media (max-width: 720px) {
   .cards-container {
     grid-template-columns: repeat(3, 1fr);
+  }
+  .ad-card {
+    grid-column: 1 / span 3;
   }
 }
 @media (max-width: 576px) {
   .cards-container {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ad-card {
+    grid-column: 1 / span 2;
   }
 }

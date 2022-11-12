@@ -1,0 +1,26 @@
+.ad-card {
+  border: 1px solid var(--main-color);
+  border-radius: 8px;
+  padding: 8px;
+  display: grid;
+  gap: 10px;
+}
+.ad-card__wrapper {
+  display: flex;
+  justify-content: space-between
+}
+.ad-card__img {
+  display: flex;
+  height: 120px;
+  width: 50%;
+  background: no-repeat center / contain;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+.ad-card__text {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
