@@ -39,3 +39,17 @@ header .logo {
 .logo img {
    height: 100%;
 }
+
+@media(max-width: 576px) {
+   .logo .full-logo {
+      display: none;
+   }
+
+   .logo .small-logo {
+      display: block;
+   }
+
+   .logo {
+      margin-right: 8px;
+   }
+}
