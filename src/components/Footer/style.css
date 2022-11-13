@@ -1,22 +1,48 @@
 footer {
    background-color: var(--main-color);
-   padding: 16px calc(50% - 500px);
+   padding: 32px calc(50% - 500px);
    display: grid;
    grid-template-columns: repeat(4, 1fr);
+   position: relative;
 }
+
 @media(max-width: 1060px) {
    footer {
       padding-left: 30px;
       padding-right: 30px;
    }
 }
+
 .contacts {
    grid-row: 1 /span 4;
    grid-column-start: 4;
 }
-footer >.logo {
-   grid-row: 1 /span 3;
+
+footer>.logo {
+   grid-row: 1 /span 4;
 }
+
 .copy {
-   grid-row-start: 4
+   position: absolute;
+   left: 32px;
+   bottom: 8px;
+}
+
+@media(max-width: 780px) {
+   footer {
+      grid-template-columns: repeat(2, 1fr);
+   }
+
+   footer .contacts {
+      grid-row: initial;
+      grid-column-start: initial;
+   }
+
+   footer .logo .full-logo {
+      display: none;
+   }
+
+   footer .logo .small-logo {
+      display: block;
+   }
 }
