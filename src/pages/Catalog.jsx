@@ -8,10 +8,15 @@ export default ({ goods }) => {
       {goods?.length > 0 ?
          goods.map((d, i) => {
             return <>
-               {i % 8 == 0 ? <AdCard text={<>
-                  <h2>Подарок за<br />первый заказ!</h2>
-                  <span>{d.name}</span>
-               </>} img={d.pictures} /> : ''}
+               {i % 8 == 0 ?
+                  <AdCard
+                     text={<>
+                        <h2>Подарок за<br />первый заказ!</h2>
+                        <span>{d.name}</span>
+                     </>}
+                     img={d.pictures}
+                     cardColor={`rgba(${Math.random() * 256},${Math.random() * 256},${Math.random() * 256}, 0.6)`}
+                  /> : ''}
                <Card
                   key={i}
                   img={d.pictures}

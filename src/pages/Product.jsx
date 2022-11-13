@@ -6,7 +6,7 @@ import { Truck } from "react-bootstrap-icons";
 export default () => {
    let p = data[0]
    const [cnt, setCnt] = useState(0);
-   return <Container>
+   return <Container style={{ backgroundColor: "red", borderRadius: "20px" }}>
 
       <Row>
          <Col xs={12}>

@@ -1,14 +1,21 @@
 .ad-card {
+  --cardColor: orange;
   border: 1px solid var(--main-color);
   border-radius: 8px;
   padding: 8px;
   display: grid;
   gap: 10px;
+  background: linear-gradient(60deg, var(--cardColor) 40%, transparent 55%);
+  overflow: hidden;
+  z-index: -2;
 }
+
 .ad-card__wrapper {
   display: flex;
-  justify-content: space-between
+  justify-content: space-between;
+  position: relative;
 }
+
 .ad-card__img {
   display: flex;
   height: 120px;
@@ -18,9 +25,26 @@
   display: flex;
   justify-content: center;
 }
+
 .ad-card__text {
   width: 50%;
   display: flex;
   align-items: center;
   flex-direction: column;
+}
+
+.ad-background-symbol {
+  position: absolute;
+  top: -60%;
+  left: -35%;
+  width: 100%;
+  height: 200%;
+  z-index: -1;
+  color: rgba(0, 0, 0, 0.1);
+}
+
+@media(max-width: 500px) {
+  .ad-card {
+    background: linear-gradient(90deg, var(--cardColor) 40%, transparent 55%);
+  }
 }
