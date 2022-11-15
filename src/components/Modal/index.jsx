@@ -2,16 +2,21 @@ import React, { useState } from "react";
 import { Form, Button, FormGroup, FormLabel, FormControl } from "react-bootstrap";
 import { XCircle } from "react-bootstrap-icons";
 import "./style.css"
+import Local from "../../Local"
 
-export default ({ isActive, changeActive, api, setToken }) => {
+export default ({ isActive, changeActive, api, setToken, setUser }) => {
    const [email, setEmail] = useState("")
    const [pwd, setPwd] = useState("")
    const handler = e => {
       e.preventDefault();
       api.logIn({ email: email, "password": pwd })
+
          .then(data => {
-            localStorage.setItem('shop-user', data.token);
+            console.log(data);
+            Local.setItem("shop-user", data.token);
+            Local.setItem("user", data.data, true);
             setToken(data.token || '');
+            setUser(data.data);
             setEmail("");
             setPwd("");
             if (data.token) {
