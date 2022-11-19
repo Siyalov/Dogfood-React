@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 //import data from "../assets/data.json"
+import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Row, Col, Figure, Table, ButtonGroup, Button, Alert } from "react-bootstrap";
 import { Truck } from "react-bootstrap-icons";
 import { useParams } from "react-router-dom";
@@ -47,12 +48,12 @@ export default ({ api }) => {
                      <Button size="sm" variant="warning">В корзину</Button>
                   </Col>
                </Row>
-               <Alert variant="secondary" className="mt-3">
+               {/* <Alert variant="secondary" className="mt-3">
                   <Row>
                      <Col md={1}><Truck /></Col>
                      <Col><small>Доставка по всему миру!</small></Col>
                   </Row >
-               </Alert >
+               </Alert > */}
             </Col >
             <Col xs={12}>
                <h2>Описание</h2>
@@ -84,3 +85,4 @@ export default ({ api }) => {
       }
    </Container >
 }
+

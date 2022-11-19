@@ -1,9 +1,10 @@
 import React from "react";
 import Card from "../components/Card";
-
 import AdCard from "../components/AdCard";
 
-export default ({ goods }) => {
+export default ({ goods, api, setFav }) => {
+   // const myLikes = goods.filter((e) => e.likes.includes(user._id));
+   // console.log(myLikes.length, myLikes)
    return <div className="cards-container">
       {goods?.length > 0 ?
          goods.map((d, i) => {
@@ -20,10 +21,9 @@ export default ({ goods }) => {
                   /> : ''}
                <Card
                   key={i}
-                  img={d.pictures}
-                  text={d.name}
-                  price={d.price}
-                  id={d._id}
+                  {...d}
+                  api={api}
+                  setFav={setFav}
                />
             </>
          })
