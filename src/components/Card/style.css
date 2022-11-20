@@ -5,16 +5,20 @@
   display: grid;
   gap: 10px;
 }
+
 .card__img {
   height: 120px;
   background: no-repeat center / contain;
 }
+
 .card__price {
   font-weight: 800;
 }
+
 .card__text {
   font-size: 12px;
 }
+
 .btn {
   width: max-content;
   border: none;
@@ -24,4 +28,24 @@
   background-color: var(--main-color);
   height: max-content;
   align-self: flex-end;
+}
+
+.card__header {
+  position: relative;
+}
+
+.card__like {
+  position: absolute;
+  right: 0;
+  color: red;
+  animation: changeColor 5s linear infinite;
+}
+
+.card__discount {
+  background: red;
+  border-radius: 16px;
+  padding: 1px 8px;
+  font-weight: bold;
+  color: white;
+
 }

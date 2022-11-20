@@ -5,7 +5,7 @@ import { Heart, HeartFill } from "react-bootstrap-icons"
 import Local from "../../Local";
 import Api from "../../Api";
 
-const Card = ({ name, price, pictures, _id, likes, api, setFav }) => {
+const Card = ({ name, price, pictures, _id, likes, api, setFav, discount }) => {
    const [like, setLike] = useState(false);
    const imgStyle = {
       backgroundImage: `url(${pictures})`
@@ -39,15 +39,19 @@ const Card = ({ name, price, pictures, _id, likes, api, setFav }) => {
    return (
       <Link to={`/product/${_id}`}>
          <div className="card">
+            <div className="card__header">
+               {discount ? <span className="card__discount">-{discount}%</span> : ''}
+               <span
+                  className="card__like"
+                  onClick={likeHandler}>
+                  {like ? <HeartFill /> : <Heart />}
+               </span>
+            </div>
             <div className="card__img" style={imgStyle}></div>
             <div className="card__price">{price} ₽</div>
             <div className="card__text">{name}</div>
             <button className="btn">Вкорзину</button>
-            <span
-               className="card__like"
-               onClick={likeHandler}>
-               {like ? <HeartFill /> : <Heart />}
-            </span>
+
          </div>
       </Link>
    )
