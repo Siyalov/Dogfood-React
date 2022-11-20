@@ -4,7 +4,7 @@ import Card from "../components/Card";
 export default ({ goods, api, setFav }) => {
    // { myLikes?.length > 0 }
    return <>
-      <h1>Главная страница</h1>
+      <h1><center>Любимые продукты</center></h1>
       <div className="cards-container">
          {goods?.map((d, i) => <Card
             key={d._id}
