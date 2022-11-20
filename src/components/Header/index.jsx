@@ -6,6 +6,12 @@ import "./style.css";
 import { ReactComponent as FavIcon } from './img/ic-favorites.svg'
 import { ReactComponent as CartIcon } from './img/ic-cart.svg'
 import { ReactComponent as ProfileIcon } from './img/ic-profile.svg'
+import xmasTree from "./img/xmas-tree.png";
+
+let t = '';
+if (document.body.classList.contains('xmas')) {
+   t = require('../../assets/xmas-audio').default;
+}
 
 export default ({ products, update, openPopup, user, setToken, setUser, likes }) => {
    const [text, changeText] = useState("");
@@ -31,6 +37,22 @@ export default ({ products, update, openPopup, user, setToken, setUser, likes })
    return <>
       <header>
          <Logo />
+         {document.body.classList.contains('xmas') ?
+            <>
+               <audio loop={true} autoPlay={true} id="xmas_audio" >
+                  <source src={t} />
+               </audio>
+               <span className="xmas__tree" onClick={() => {
+                  if (xmas_audio.paused) {
+                     xmas_audio.play();
+                     document.body.classList.add('xmas');
+                  } else {
+                     xmas_audio.pause();
+                     document.body.classList.remove('xmas');
+                  }
+               }}><img height={64} src={xmasTree} /></span>
+            </>
+            : ''}
          <input type="search" value={text} onChange={handler} />
          <nav>
             {user && <Link to="/favorites"><FavIcon /><span>{likes}</span></Link>}
