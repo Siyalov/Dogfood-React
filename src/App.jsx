@@ -63,11 +63,12 @@ const App = () => {
                 user={!!token}
                 setToken={setToken}
                 setUser={setUser}
+                likes={fav.length}
             />
             {/* <Catalog goods={goods} /> */}
             {/* <Product/> */}
             <Routes>
-                <Route path="/" element={<Main />} />
+                <Route path="/favorites" element={<Main goods={fav} api={api} setFav={setFav} />} />
                 <Route path="/catalog" element={<Catalog goods={goods} setFav={setFav} api={api} />} />
                 <Route path="/product/:id" element={<Product api={api} />} />
                 <Route path="/profile" element={<Profile user={user} />} />

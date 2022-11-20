@@ -36,6 +36,24 @@ header .logo {
    display: flex;
 }
 
+nav a {
+   position: relative;
+}
+
+nav a span {
+   position: absolute;
+   top: -8px;
+   right: -8px;
+   font-size: smaller;
+   border-radius: 50%;
+   background: #02a34d;
+   color: white;
+   width: 16px;
+   height: 16px;
+   text-align: center;
+   line-height: 16px;
+}
+
 .logo img {
    height: 100%;
 }

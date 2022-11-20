@@ -10,7 +10,7 @@ export default ({ api }) => {
    // let p = data[0];
    const [product, setProduct] = useState({})
 
-   const [cnt, setCnt] = useState(0);
+   const [cnt, setCnt] = useState(1);
    let params = useParams();
 
    useEffect(() => {
@@ -28,14 +28,16 @@ export default ({ api }) => {
             <Col xs={12}>
                <h1>{product.name}</h1>
             </Col>
-            <Col xs={12} md={8}>
+            <Col xs={12} md={6} lg={4}>
                <Figure>
                   <Figure.Image src={product.pictures} />
                </Figure>
             </Col>
             <Col xs={12} md={4}>
-               {product.discount && <small><del>{product.price} ₽ </del></small>}
-               <div><strong className={product.discount ? "text-danger" : "text-dark"}>{Math.ceil(product.price * ((100 - product.discount) / 100))}</strong></div>
+               {product.discount ? <small><del>{cnt * product.price} ₽ </del></small> : ''}
+               <div><strong className={product.discount ? "text-danger" : "text-dark"}>
+                  {cnt * Math.ceil(product.price * ((100 - product.discount) / 100))} ₽
+               </strong></div>
                <Row>
                   <Col md={6}>
                      <ButtonGroup>
