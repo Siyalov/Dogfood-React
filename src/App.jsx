@@ -5,7 +5,7 @@ import Catalog from "./pages/Catalog";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Modal from "./components/Modal";
-import Api from "./Api.js"
+import Api from "./Api.js";
 import Local from "./Local";
 import Main from "./pages/Main";
 import Profile from "./pages/Profile";
@@ -13,10 +13,9 @@ import { Fan } from "react-bootstrap-icons";
 //import 'bootstrap/dist/css/bootstrap.min.css';
 //import { Container, Row, Col } from "react-bootstrap";
 
-
 const App = () => {
     const [data, setData] = useState([]);
-    const [goods, setGoods] = useState([])
+    const [goods, setGoods] = useState([]);
     const [token, setToken] = useState(Local.getItem("shop-user"));
     const [user, setUser] = useState(Local.getItem("user", true));
     const [popupActive, changePopupActive] = useState(false);
@@ -25,36 +24,36 @@ const App = () => {
 
     useEffect(() => {
         setApi(new Api(token));
-    }, [token])
-
+    }, [token]);
 
     useEffect(() => {
         if (token) {
             api.getProducts()
-                .then(data => {
+                .then((data) => {
                     setGoods(data.products || []);
                     setData(data.products || []);
-                })
+                });
             // console.log("Данные из сервера", data);
             api.showProfile()
-                .then(data => {
+                .then((data) => {
                     // console.log("User", data);
                     if (!data._id) {
-                        setToken('');
+                        setToken("");
                     }
                 });
         } else {
             setGoods([]);
             setData([]);
         }
-    }, [api])
+    }, [api]);
 
     useEffect(() => {
-        const f = goods.filter(el => el.likes.includes(user._id))
+        const f = goods.filter((el) => el.likes.includes(user._id));
         setFav(f);
-    }, [goods])
+    }, [goods]);
 
-    return <>
+    return (
+        <>
         <div className="wrapper">
             <Header
                 products={data}
@@ -75,19 +74,18 @@ const App = () => {
             </Routes>
             <Footer />
         </div>
-        {!token && <Modal
+        {!token && (
+            <Modal
             isActive={popupActive}
             changeActive={changePopupActive}
             setToken={setToken}
             api={api}
             setUser={setUser}
             likes={fav.length}
-        />}
-    </>
-}
+            />
+        )}
+        </>
+    );
+};
 
 export default App;
-
-
-
-
