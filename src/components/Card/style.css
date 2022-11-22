@@ -42,6 +42,8 @@
 }
 
 .card__discount {
+  position: absolute;
+  left: 0;
   background: red;
   border-radius: 16px;
   padding: 1px 8px;
