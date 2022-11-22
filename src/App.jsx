@@ -67,8 +67,8 @@ const App = () => {
             {/* <Catalog goods={goods} /> */}
             {/* <Product/> */}
             <Routes>
+                <Route path="/" element={<Catalog goods={goods} setFav={setFav} api={api} user={user}/>} />
                 <Route path="/favorites" element={<Main goods={fav} api={api} setFav={setFav} />} />
-                <Route path="/catalog" element={<Catalog goods={goods} setFav={setFav} api={api} />} />
                 <Route path="/product/:id" element={<Product api={api} />} />
                 <Route path="/profile" element={<Profile user={user} />} />
             </Routes>

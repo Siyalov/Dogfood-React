@@ -56,8 +56,8 @@ export default ({ products, update, openPopup, user, setToken, setUser, likes })
          <input type="search" value={text} onChange={handler} />
          <nav>
             {user && <Link to="/favorites"><FavIcon /><span>{likes}</span></Link>}
+            {user && <Link to="/"><CartIcon /></Link>}
             {/* {myLikes?.length} */}
-            {user && <Link to="/catalog"><CartIcon /></Link>}
             {user && <Link to="/profile"><ProfileIcon /></Link>}
             {user && <a href="" onClick={logout}><BoxArrowLeft style={{ fontSize: "1.6rem" }} /></a>}
             {!user && <a href="" onClick={e => { e.preventDefault(); openPopup(true) }}><BoxArrowInRight style={{ fontSize: "1.6rem" }} /></a>}

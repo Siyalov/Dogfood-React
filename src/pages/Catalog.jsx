@@ -2,14 +2,15 @@ import React from "react";
 import Card from "../components/Card";
 import AdCard from "../components/AdCard";
 
-export default ({ goods, api, setFav }) => {
+
+export default ({ goods, api, setFav, user }) => {
    // const myLikes = goods.filter((e) => e.likes.includes(user._id));
    // console.log(myLikes.length, myLikes)
    return <div className="cards-container">
       {goods?.length > 0 ?
          goods.map((d, i) => {
             return <>
-               {i % 8 == 0 ?
+               {i % 8 == 0 && !user?._id ?
                   <AdCard
                      key={'ad' + i}
                      text={<>
