@@ -67,7 +67,7 @@ export default ({ products, update, openPopup, user, setToken, setUser, likes })
          </nav>
       </header>
       <div>
-         {text ? `По запросу ${text} найдено ${cnt} позиций` : "Поиск..."}
+         {/* {text ? `По запросу ${text} найдено ${cnt} позиций` : "Поиск..."} */}
       </div>
    </>
 }
