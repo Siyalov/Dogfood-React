@@ -25,6 +25,7 @@ export default ({ goods, api, setFav, user }) => {
                   {...d}
                   api={api}
                   setFav={setFav}
+                  userId={user?._id}
                />
             </>
          })

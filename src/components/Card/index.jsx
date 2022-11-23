@@ -5,15 +5,13 @@ import { Heart, HeartFill } from "react-bootstrap-icons";
 import Local from "../../Local";
 import Api from "../../Api";
 
-const Card = ({ name, price, pictures, _id, likes, api, setFav, discount }) => {
+const Card = ({ name, price, pictures, _id, likes, api, setFav, discount, userId }) => {
    const [like, setLike] = useState(false);
    const imgStyle = {
       backgroundImage: `url(${pictures})`,
    };
    useEffect(() => {
-      let id = Local.getItem("u", true)._id;
-      console.log(id);
-      if (likes.includes(id)) {
+      if (likes.includes(userId)) {
          setLike(true);
       }
    }, []);

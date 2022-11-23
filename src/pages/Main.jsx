@@ -1,7 +1,7 @@
 import React from "react";
 import Card from "../components/Card";
 
-export default ({ goods, api, setFav }) => {
+export default ({ goods, api, setFav, user }) => {
    // { myLikes?.length > 0 }
    return <>
       <h1><center>Любимые продукты</center></h1>
@@ -11,6 +11,7 @@ export default ({ goods, api, setFav }) => {
             {...d}
             api={api}
             setFav={setFav}
+            userId={user?._id}
          />)}
       </div>
    </>
