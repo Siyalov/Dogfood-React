@@ -13,6 +13,8 @@ import { Fan } from "react-bootstrap-icons";
 //import 'bootstrap/dist/css/bootstrap.min.css';
 //import { Container, Row, Col } from "react-bootstrap";
 
+const defaultToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzdlOWU5ODU5Yjk4YjAzOGY3NzlkNDciLCJncm91cCI6InB1YmxpYy1ncm91cCIsImlhdCI6MTY2OTI0MjczMiwiZXhwIjoxNzAwNzc4NzMyfQ.LBNBuL9jONfQwkaeQPI4efNCW14nhmKVeyQ3IbiWNpg';
+
 const App = () => {
     const [data, setData] = useState([]);
     const [goods, setGoods] = useState([]);
@@ -23,11 +25,16 @@ const App = () => {
     const [fav, setFav] = useState([]);
 
     useEffect(() => {
-        setApi(new Api(token));
+        // setApi(new Api(token));
+        api.token = token;
     }, [token]);
 
     useEffect(() => {
-        if (token) {
+        if (!token) {
+            api.token = defaultToken;
+            setUser({});
+        }
+        // if (token) {
             api.getProducts()
                 .then((data) => {
                     setGoods(data.products || []);
@@ -39,12 +46,14 @@ const App = () => {
                     // console.log("User", data);
                     if (!data._id) {
                         setToken("");
+                        api.token = defaultToken;
+                        setUser({});
                     }
                 });
-        } else {
-            setGoods([]);
-            setData([]);
-        }
+        // } else {
+        //     setGoods([]);
+        //     setData([]);
+        // }
     }, [api]);
 
     useEffect(() => {
