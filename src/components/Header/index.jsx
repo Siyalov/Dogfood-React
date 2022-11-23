@@ -7,6 +7,7 @@ import { ReactComponent as FavIcon } from './img/ic-favorites.svg'
 import { ReactComponent as CartIcon } from './img/ic-cart.svg'
 import { ReactComponent as ProfileIcon } from './img/ic-profile.svg'
 import xmasTree from "./img/xmas-tree.png";
+import { useNavigate } from "react-router-dom";
 
 let t = '';
 if (document.body.classList.contains('xmas')) {
@@ -14,6 +15,7 @@ if (document.body.classList.contains('xmas')) {
 }
 
 export default ({ products, update, openPopup, user, setToken, setUser, likes }) => {
+   const navigate = useNavigate();
    const [text, changeText] = useState("");
    const [cnt, setCnt] = useState(0);
    const handler = e => {
@@ -32,6 +34,7 @@ export default ({ products, update, openPopup, user, setToken, setUser, likes })
       localStorage.removeItem("user");
       setToken("");
       setUser({});
+      navigate('/');
    }
 
    return <>
