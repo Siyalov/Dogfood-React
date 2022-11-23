@@ -22,6 +22,7 @@ a {
   max-width: 1200px;
   margin: auto;
   padding: 30px;
+  padding-top: 8px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 30px;
@@ -64,4 +65,19 @@ a {
 
 body.xmas {
   animation: changeColor 1s linear infinite;
+}
+
+.main-page-header {
+  background: var(--main-color);
+  min-height: 160px;
+  font-size: xx-large;
+}
+.main-page-header .h-wrapper {
+  max-width: 1200px;
+  margin: auto;
+  padding: 30px;
+}
+
+.h-wrapper * {
+  width: 312px;
 }
