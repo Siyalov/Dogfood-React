@@ -8,6 +8,7 @@ import { ReactComponent as CartIcon } from './img/ic-cart.svg'
 import { ReactComponent as ProfileIcon } from './img/ic-profile.svg'
 import xmasTree from "./img/xmas-tree.png";
 import { useNavigate } from "react-router-dom";
+import { path } from "../../settings";
 
 let t = '';
 if (document.body.classList.contains('xmas')) {
@@ -34,7 +35,7 @@ export default ({ products, update, openPopup, user, setToken, setUser, likes })
       localStorage.removeItem("user");
       setToken("");
       setUser({});
-      navigate('');
+      navigate(path);
    }
 
    return <>
@@ -58,10 +59,9 @@ export default ({ products, update, openPopup, user, setToken, setUser, likes })
             : ''}
          <input type="search" value={text} onChange={handler} />
          <nav>
-            {user && <Link to="favorites"><FavIcon /><span>{likes}</span></Link>}
-            {user && <Link to=""><CartIcon /></Link>}
-            {/* {myLikes?.length} */}
-            {user && <Link to="profile"><ProfileIcon /></Link>}
+            {user && <Link to={path + "favorites"}><FavIcon /><span>{likes}</span></Link>}
+            {user && <Link to={path}><CartIcon /></Link>}
+            {user && <Link to={path + "profile"}><ProfileIcon /></Link>}
             {user && <a href="" onClick={logout}><BoxArrowLeft style={{ fontSize: "1.6rem" }} /></a>}
             {!user && <a href="" onClick={e => { e.preventDefault(); openPopup(true) }}><BoxArrowInRight style={{ fontSize: "1.6rem" }} /></a>}
          </nav>

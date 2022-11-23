@@ -4,6 +4,7 @@ import "./style.css";
 import { Heart, HeartFill } from "react-bootstrap-icons";
 import Local from "../../Local";
 import Api from "../../Api";
+import { path } from "../../settings";
 
 const Card = ({ name, price, pictures, _id, likes, api, setFav, discount, userId }) => {
    const [like, setLike] = useState(false);
@@ -33,7 +34,7 @@ const Card = ({ name, price, pictures, _id, likes, api, setFav, discount, userId
    };
 
    return (
-      <Link to={`/product/${_id}`}>
+      <Link to={path + `product/${_id}`}>
          <div className="card">
             <div className="card__header">
                {discount ? <span className="card__discount">-{discount}%</span> : ""}
