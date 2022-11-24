@@ -74,6 +74,7 @@ const App = () => {
             />
             {/* <Catalog goods={goods} /> */}
             {/* <Product/> */}
+            {/* TODO: use hash router to fix github pages problem */  }
             <Routes>
                 <Route path={path} element={<Catalog goods={goods} setFav={setFav} api={api} user={user}/>} />
                 <Route path={path + "favorites"} element={<Main goods={fav} api={api} setFav={setFav} user={user} />} />
