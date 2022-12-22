@@ -13,9 +13,16 @@ a {
 }
 
 .wrapper {
+  display: table;
+  width: 100%;
   height: 100vh;
   /* display: grid;
   background-color: white; */
+}
+
+.content-body {
+  display: table-row;
+  height: 100%;
 }
 
 .cards-container {

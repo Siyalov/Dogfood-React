@@ -97,13 +97,15 @@ const App = () => {
             {/* <Catalog goods={goods} /> */}
             {/* <Product/> */}
             {/* TODO: use hash router to fix github pages problem */  }
-            <Routes>
-                <Route path={path} element={<Catalog goods={goods} setFav={setFav} api={api} user={user} addToCart={addToCart} />} />
-                <Route path={path + "favorites"} element={<Main goods={fav} api={api} setFav={setFav} user={user} />} />
-                <Route path={path + "product/:id"} element={<Product api={api} addToCart={addToCart} />} />
-                <Route path={path + "profile"} element={<Profile user={user} />} />
-                <Route path={path + "shoppingCart"} element={<ShoppingCart cart={cart} />} />
-            </Routes>
+            <div class="content-body">
+                <Routes>
+                    <Route path={path} element={<Catalog goods={goods} setFav={setFav} api={api} user={user} addToCart={addToCart} />} />
+                    <Route path={path + "favorites"} element={<Main goods={fav} api={api} setFav={setFav} user={user} />} />
+                    <Route path={path + "product/:id"} element={<Product api={api} addToCart={addToCart} />} />
+                    <Route path={path + "profile"} element={<Profile user={user} />} />
+                    <Route path={path + "shoppingCart"} element={<ShoppingCart cart={cart} />} />
+                </Routes>
+            </div>
             <Footer />
         </div>
         {!token && (
