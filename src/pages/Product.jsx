@@ -6,7 +6,7 @@ import { Truck } from "react-bootstrap-icons";
 import { useParams } from "react-router-dom";
 import Api from "../Api";
 
-export default ({ api }) => {
+export default ({ api, addToCart } ) => {
    // let p = data[0];
    const [product, setProduct] = useState({})
 
@@ -47,7 +47,7 @@ export default ({ api }) => {
                      </ButtonGroup>
                   </Col>
                   <Col md={6}>
-                     <Button size="sm" variant="warning">В корзину</Button>
+                     <Button size="sm" variant="warning" onClick={() => addToCart(product, cnt) }>В корзину</Button>
                   </Col>
                </Row>
                {/* <Alert variant="secondary" className="mt-3">

@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../Logo"
+import { Context } from "../../App";
 import { BoxArrowInRight, BoxArrowLeft } from "react-bootstrap-icons";
 import "./style.css";
 import { ReactComponent as FavIcon } from './img/ic-favorites.svg'
@@ -15,12 +16,12 @@ if (document.body.classList.contains('xmas')) {
    t = require('../../assets/xmas-audio').default;
 }
 
-export default ({ products, update, openPopup, user, setToken, setUser, likes }) => {
+export default ({ update, openPopup, user, setToken, setUser, likes, cart }) => {
    const navigate = useNavigate();
-   const [text, changeText] = useState("");
+   const {searchText, search, setProducts, products} = useContext(Context);
    const [cnt, setCnt] = useState(0);
    const handler = e => {
-      changeText(e.target.value);
+      search(e.target.value);
       const result = products.filter((el => el.name.toLowerCase().search(e.target.value.toLowerCase()) !== -1));
       setCnt(result.length);
       if (!text) {
@@ -57,17 +58,17 @@ export default ({ products, update, openPopup, user, setToken, setUser, likes })
                }}><img height={64} src={xmasTree} /></span>
             </>
             : ''}
-         <input type="search" value={text} onChange={handler} />
+         <input type="search" value={searchText} onChange={handler} />
          <nav>
             {user && <Link to={path + "favorites"}><FavIcon /><span>{likes}</span></Link>}
-            {user && <Link to={path}><CartIcon /></Link>}
+            {user && <Link to={path + "shoppingCart"}><CartIcon /><span>{cart}</span></Link>}
             {user && <Link to={path + "profile"}><ProfileIcon /></Link>}
             {user && <a href="" onClick={logout}><BoxArrowLeft style={{ fontSize: "1.6rem" }} /></a>}
             {!user && <a href="" onClick={e => { e.preventDefault(); openPopup(true) }}><BoxArrowInRight style={{ fontSize: "1.6rem" }} /></a>}
          </nav>
       </header>
       <div>
-         {/* {text ? `По запросу ${text} найдено ${cnt} позиций` : "Поиск..."} */}
+         { searchText ? `По запросу ${searchText} найдено ${cnt} позиций` : "Поиск..."} 
       </div>
    </>
 }

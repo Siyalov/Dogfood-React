@@ -1,18 +1,23 @@
-import React from "react";
+import React,{useContext, useState} from "react";
 import Card from "../components/Card";
 import AdCard from "../components/AdCard";
+import {Context}  from "../App";  
 
 
-export default ({ goods, api, setFav, user }) => {
+export default ({ goods, api, setFav, user, addToCart}) => {
+   const { searchText, products } = useContext(Context);       
+       
+   console.log(searchText)
    // const myLikes = goods.filter((e) => e.likes.includes(user._id));
    // console.log(myLikes.length, myLikes)
+   console.log(user._id)
    return <>
-      <div className="main-page-header">
+      {/* <div className="main-page-header">
          <div className="h-wrapper">
             <h1><b>Крафтовые лакомства для собак</b></h1>
             <h4>Всегда свежие лакомства ручной работы с доставкой по России и миру</h4>
          </div>
-      </div>
+      </div> */}
       <div className="cards-container">
          {goods?.length > 0 ?
             goods.map((d, i) => {
@@ -33,6 +38,7 @@ export default ({ goods, api, setFav, user }) => {
                      api={api}
                      setFav={setFav}
                      userId={user?._id}
+                     addToCart={() => addToCart(d, 1)}
                   />
                </>
             })

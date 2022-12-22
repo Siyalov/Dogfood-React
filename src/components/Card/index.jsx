@@ -6,7 +6,7 @@ import Local from "../../Local";
 import Api from "../../Api";
 import { path } from "../../settings";
 
-const Card = ({ name, price, pictures, _id, likes, api, setFav, discount, userId }) => {
+const Card = ({ name, price, pictures, _id, likes, api, setFav, discount, userId, addToCart }) => {
    const [like, setLike] = useState(false);
    const imgStyle = {
       backgroundImage: `url(${pictures})`,
@@ -47,7 +47,7 @@ const Card = ({ name, price, pictures, _id, likes, api, setFav, discount, userId
             <div className="card__img" style={imgStyle}></div>
             <div className="card__price">{price} ₽</div>
             <div className="card__text">{name}</div>
-            <button className="btn">Вкорзину</button>
+            <button className="btn" onClick={(event) => {event.preventDefault(); addToCart()}}>В корзину</button>
          </div>
       </Link>
   );
