@@ -1,7 +1,7 @@
 class Api {
-  constructor(t) {
+  constructor(token) {
     this.path = "https://api.react-learning.ru";
-    this.token = t;
+    this.token = token;
   }
   getProducts() {
     return fetch(`${this.path}/products`, {
