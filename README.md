@@ -1,6 +1,6 @@
 # Simple React Template
 
-## Проект на гитхабе: https://siyalov.github.io/Dogfoot-React/
+## Проект на гитхабе: https://siyalov.github.io/Dogfood-React/
 
 
 Для успешной работы с проектом необходимо выполнить следующие действия:
