@@ -1,29 +1,15 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import Card from "../components/Card";
 import AdCard from "../components/AdCard";
 import { Context } from "../App";
-import Api from "../Api";
 
-/** @typedef {import('../typings').Product} Product */
-/** @typedef {import('../typings').NewProduct} NewProduct */
-/** @typedef {import('../typings').User} User */
-/** @typedef {import('../typings').UserAuthorization} UserAuthorization */
-
-/**
- * @param {Object} opts
- * @param {Api} opts.api
- * @param {Array<Product>} opts.goods
- * @param {React.Dispatch<React.SetStateAction<Product[]>>} opts.setFav
- * @param {User} opts.user
- * @param {(product: Product, count: number) => void} opts.addToCart
- */
-export default function Catalog({ goods, api, setFav, user, addToCart }) {
-  const { searchText, products } = useContext(Context);
+export default function Catalog() {
+  const { products, user, addToCart } = useContext(Context);
   return (
     <>
       <div className="cards-container">
-        {goods?.length > 0 ? (
-          goods.map((product, index) => {
+        {products?.length > 0 ? (
+          products.map((product, index) => {
             return (
               <>
                 {index % 8 == 0 && !user?._id ? (
@@ -49,10 +35,7 @@ export default function Catalog({ goods, api, setFav, user, addToCart }) {
                 )}
                 <Card
                   key={index}
-                  {...product}
-                  api={api}
-                  setFav={setFav}
-                  userId={user?._id}
+                  product={product}
                   addToCart={() => addToCart(product, 1)}
                 />
               </>

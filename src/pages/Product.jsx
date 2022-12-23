@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   Container,
@@ -10,19 +10,11 @@ import {
   Button,
 } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import Api from "../Api";
+import { Context } from "../App";
 
-/** @typedef {import('../typings').Product} Product */
-/** @typedef {import('../typings').NewProduct} NewProduct */
-/** @typedef {import('../typings').User} User */
-/** @typedef {import('../typings').UserAuthorization} UserAuthorization */
+export default function Product() {
+  const { api, addToCart } = useContext(Context);
 
-/**
- * @param {Object} opts
- * @param {Api} opts.api
- * @param {() => void} opts.addToCart
- */
-export default function Product({ api, addToCart }) {
   /** @type {[ Product, React.Dispatch<React.SetStateAction<Product>> ]} */
   const [product, setProduct] = useState({});
 

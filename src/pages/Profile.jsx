@@ -1,16 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Container, Row, Col, Figure } from "react-bootstrap";
+import { Context } from "../App";
 
-/** @typedef {import('../typings').Product} Product */
-/** @typedef {import('../typings').NewProduct} NewProduct */
-/** @typedef {import('../typings').User} User */
-/** @typedef {import('../typings').UserAuthorization} UserAuthorization */
-
-/**
- * @param {Object} opts
- * @param {User} opts.user
- */
-export default function Profile({ user }) {
+export default function Profile() {
+  const { user } = useContext(Context);
   return (
     <Container>
       {user.name && (

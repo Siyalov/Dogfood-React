@@ -1,3 +1,5 @@
+import React from 'react';
+import Api from './Api';
 
 export interface User {
   about: string
@@ -63,3 +65,31 @@ export type NewProduct = Pick<Product,
   | "wight"
   | "description"
 >
+
+export interface CartItem {
+  product: Product
+  count: number
+}
+
+export interface DogFoodContext {
+  products: Array<Product>
+  setProducts: React.Dispatch<React.SetStateAction< Array<Product> >>
+
+  searchText: string
+  search: React.Dispatch<React.SetStateAction< string >>
+
+  user: User
+  setUser: React.Dispatch<React.SetStateAction< User >>
+
+  cart: Array<CartItem>
+  setProducts: React.Dispatch<React.SetStateAction< Array<CartItem> >>
+  cartLength: Array<Product>
+  setCartLength: React.Dispatch<React.SetStateAction< Array<Product> >>
+  addToCart: (product: Product, count: number) => void
+
+  favorites: Array<Product>
+  setFavorites: React.Dispatch<React.SetStateAction< Array<Product> >>
+
+  api: Api
+  setApi: React.Dispatch<React.SetStateAction< Api >>
+}

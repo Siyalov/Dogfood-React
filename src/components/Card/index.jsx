@@ -4,35 +4,29 @@ import "./style.css";
 import { Heart, HeartFill } from "react-bootstrap-icons";
 import { path } from "../../settings";
 import Api from "../../Api";
+import { useContext } from "react";
+import { Context } from "../../App";
 
 /** @typedef {import('../../typings').Product} Product */
 
 /**
- * @param {Product & {
- *  api: Api,
- *  setFav: React.Dispatch<React.SetStateAction<Product[]>>,
- *  userId: string,
+ * @param {{
+ *  product: Product
  *  addToCart: (product: Product, count: number) => void
  * }} param0
  */
 export default function Card({
-  name,
-  price,
-  pictures,
-  _id,
-  likes,
-  api,
-  setFav,
-  discount,
-  userId,
+  product,
   addToCart,
 }) {
+  const { api, setFavorites, user } = useContext(Context);
+
   const [like, setLike] = useState(false);
   const imgStyle = {
-    backgroundImage: `url(${pictures})`,
+    backgroundImage: `url(${product.pictures})`,
   };
   useEffect(() => {
-    if (likes.includes(userId)) {
+    if (product.likes.includes(user._id)) {
       setLike(true);
     }
   }, []);
@@ -42,29 +36,29 @@ export default function Card({
     e.stopPropagation();
     e.preventDefault();
     setLike(!like);
-    api.setLike(_id, !like).then((data) => {
+    api.setLike(product._id, !like).then((data) => {
       if (!like) {
-        setFav((prev) => {
+        setFavorites((prev) => {
           return [...prev, data];
         });
       } else {
-        setFav((prev) => prev.filter((el) => el._id !== _id));
+        setFavorites((prev) => prev.filter((el) => el._id !== product._id));
       }
     });
   };
 
   return (
-    <Link to={path + `product/${_id}`}>
+    <Link to={path + `product/${product._id}`}>
       <div className="card">
         <div className="card__header">
-          {discount ? <span className="card__discount">-{discount}%</span> : ""}
+          {product.discount ? <span className="card__discount">-{product.discount}%</span> : ""}
           <span className="card__like" onClick={likeHandler}>
             {like ? <HeartFill /> : <Heart />}
           </span>
         </div>
         <div className="card__img" style={imgStyle}></div>
-        <div className="card__price">{price} ₽</div>
-        <div className="card__text">{name}</div>
+        <div className="card__price">{product.price} ₽</div>
+        <div className="card__text">{product.name}</div>
         <button
           className="btn"
           onClick={(event) => {

@@ -9,22 +9,18 @@ import {
 import { XCircle } from "react-bootstrap-icons";
 import "./style.css";
 import Local from "../../Local";
-import Api from "../../Api";
-
-/** @typedef {import('../../typings').Product} Product */
-/** @typedef {import('../../typings').NewProduct} NewProduct */
-/** @typedef {import('../../typings').User} User */
-/** @typedef {import('../../typings').UserAuthorization} UserAuthorization */
+import { useContext } from "react";
+import { Context } from "../../App";
 
 /**
  * @param {Object} opts
  * @param {boolean} opts.isActive
  * @param {React.Dispatch<React.SetStateAction<boolean>>} opts.changeActive
- * @param {Api} opts.api
  * @param {React.Dispatch<React.SetStateAction<string>>} opts.setToken
- * @param {React.Dispatch<React.SetStateAction<User>>} opts.setUser
  */
-export default function Modal({ isActive, changeActive, api, setToken, setUser }) {
+export default function Modal({ isActive, changeActive, setToken }) {
+  const { api, setUser } = useContext(Context);
+
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   /** @type {React.MouseEventHandler<HTMLButtonElement>} */

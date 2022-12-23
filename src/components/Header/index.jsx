@@ -23,39 +23,19 @@ if (document.body.classList.contains("xmas")) {
 
 /**
  * @param {Object} opts
- * @param {React.Dispatch<React.SetStateAction<Product[]>>} opts.update
  * @param {React.Dispatch<React.SetStateAction<boolean>>} opts.openPopup
- * @param {boolean} opts.user
  * @param {React.Dispatch<React.SetStateAction<string>>} opts.setToken
- * @param {React.Dispatch<React.SetStateAction<User>>} opts.setUser
- * @param {number} opts.likes
- * @param {number} opts.cart
  */
 export default function Header({
-  update,
   openPopup,
-  user,
   setToken,
-  setUser,
-  likes,
-  cart,
 }) {
   const navigate = useNavigate();
-  // TODO: types
-  const { searchText, search, setProducts, products } = useContext(Context);
-  const [cnt, setCnt] = useState(0);
+  const { searchText, search, products, cartLength, favorites, setUser, user } = useContext(Context);
+
   /** @type {React.ChangeEventHandler<HTMLInputElement>} */
   const handler = (e) => {
     search(e.target.value);
-    const result = products.filter(
-      (el) => el.name.toLowerCase().search(e.target.value.toLowerCase()) !== -1
-    );
-    setCnt(result.length);
-    if (!text) {
-      update(products);
-    } else {
-      update(result);
-    }
   };
   /** @type {React.MouseEventHandler<HTMLAnchorElement>} */
   const logout = (e) => {
@@ -96,29 +76,29 @@ export default function Header({
         )}
         <input type="search" value={searchText} onChange={handler} />
         <nav>
-          {user && (
+          {user._id && (
             <Link to={path + "favorites"}>
               <FavIcon />
-              <span>{likes}</span>
+              <span>{favorites.length}</span>
             </Link>
           )}
-          {user && (
+          {user._id && (
             <Link to={path + "shoppingCart"}>
               <CartIcon />
-              <span>{cart}</span>
+              <span>{cartLength}</span>
             </Link>
           )}
-          {user && (
+          {user._id && (
             <Link to={path + "profile"}>
               <ProfileIcon />
             </Link>
           )}
-          {user && (
+          {user._id && (
             <a href="" onClick={logout}>
               <BoxArrowLeft style={{ fontSize: "1.6rem" }} />
             </a>
           )}
-          {!user && (
+          {!user._id && (
             <a
               href=""
               onClick={(e) => {
@@ -133,7 +113,7 @@ export default function Header({
       </header>
       <div>
         {searchText
-          ? `По запросу ${searchText} найдено ${cnt} позиций`
+          ? `По запросу ${searchText} найдено ${products.length} позиций`
           : ""}
       </div>
     </>

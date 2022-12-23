@@ -14,13 +14,16 @@ import Profile from "./pages/Profile";
 import Api from "./Api.js";
 import Local from "./Local";
 import { path, defaultToken } from "./settings";
+import { useContext } from "react";
 
-const Context = React.createContext({});
-
+/** @typedef {import('./typings').DogFoodContext} DogFoodContext */
 /** @typedef {import('./typings').Product} Product */
 /** @typedef {import('./typings').NewProduct} NewProduct */
 /** @typedef {import('./typings').User} User */
 /** @typedef {import('./typings').UserAuthorization} UserAuthorization */
+
+/** @type {React.Context<DogFoodContext>} */
+const Context = React.createContext({});
 
 const App = () => {
   /** @type {[ Product[], React.Dispatch<React.SetStateAction<Product[]>> ]} */
@@ -30,7 +33,7 @@ const App = () => {
   /** @type {[ User, React.Dispatch<React.SetStateAction<User>> ]} */
   const [user, setUser] = useState(Local.getItem("user", true));
   /** @type {[ Product[], React.Dispatch<React.SetStateAction<Product[]>> ]} */
-  const [fav, setFav] = useState([]);
+  const [favorites, setFavorites] = useState([]);
   /** @type {[ Product[], React.Dispatch<React.SetStateAction<Product[]>> ]} */
   const [products, setProducts] = useState([]);
   /** @type {[ Array<{ product: Product, count: number }>, React.Dispatch<React.SetStateAction< Array<{ product: Product, count: number }> >> ]} */
@@ -87,9 +90,13 @@ const App = () => {
 
   useEffect(() => {
     const favorites = goods.filter((product) => product.likes.includes(user._id));
-    setFav(favorites);
-    setProducts(goods);
+    setFavorites(favorites);
   }, [goods]);
+
+  useEffect(() => {
+    const filteredProducts = goods.filter((product) => product.name.toLowerCase().includes(searchText.toLowerCase()));
+    setProducts(filteredProducts);
+  }, [goods, searchText]);
 
   useEffect(() => {
     let length = 0;
@@ -97,55 +104,56 @@ const App = () => {
       length += el.count;
     }
     setCartLength(length);
-  }, [cart])
+  }, [cart]);
 
   return (
     <Context.Provider
       value={{
-        products: products,
-        searchText: searchText,
-        setProducts: setProducts,
-        search: search,
+        products,
+        setProducts,
+
+        searchText,
+        search,
+
+        user,
+        setUser,
+
+        cart,
+        setCart,
+        cartLength,
+        setCartLength,
+        addToCart,
+        
+        favorites,
+        setFavorites,
+
+        api,
+        setApi,
       }}
     >
       <div className="wrapper">
         <Header
-          update={setGoods}
           openPopup={changePopupActive}
-          user={!!token}
           setToken={setToken}
-          setUser={setUser}
-          likes={fav.length}
-          cart={cartLength}
         />
-        <div class="content-body">
+        <div className="content-body">
           <Routes>
             <Route
               path={path}
-              element={
-                <Catalog
-                  goods={goods}
-                  setFav={setFav}
-                  api={api}
-                  user={user}
-                  addToCart={addToCart}
-                />
-              }
+              element={<Catalog />}
             />
             <Route
               path={path + "favorites"}
-              element={
-                <Main goods={fav} api={api} setFav={setFav} user={user} />
-              }
+              element={<Main />}
             />
             <Route
               path={path + "product/:id"}
-              element={<Product api={api} addToCart={addToCart} />}
+              element={<Product />}
             />
-            <Route path={path + "profile"} element={<Profile user={user} />} />
+            <Route path={path + "profile"} element={<Profile />} />
             <Route
               path={path + "shoppingCart"}
-              element={<ShoppingCart cart={cart} cartLength={cartLength} />}
+              element={<ShoppingCart />}
             />
           </Routes>
         </div>
@@ -156,9 +164,6 @@ const App = () => {
           isActive={popupActive}
           changeActive={changePopupActive}
           setToken={setToken}
-          api={api}
-          setUser={setUser}
-          likes={fav.length}
         />
       )}
     </Context.Provider>

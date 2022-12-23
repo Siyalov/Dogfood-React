@@ -1,4 +1,5 @@
 import React from "react";
+import { useContext } from "react";
 import {
   Container,
   Row,
@@ -10,19 +11,11 @@ import {
 } from "react-bootstrap";
 import { EmojiFrown } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
+import { Context } from "../App";
 import { path } from "../settings";
 
-/** @typedef {import('../typings').Product} Product */
-/** @typedef {import('../typings').NewProduct} NewProduct */
-/** @typedef {import('../typings').User} User */
-/** @typedef {import('../typings').UserAuthorization} UserAuthorization */
-
-/**
- * @param {Object} opts
- * @param {Array<{ product: Product, count: number }>} opts.cart
- * @param {number} cartLength
- */
-export default function ShoppingCart({ cart, cartLength }) {
+export default function ShoppingCart() {
+  const { cart, cartLength } = useContext(Context);
   return (
     <>
       <Container>
