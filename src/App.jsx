@@ -25,15 +25,23 @@ const App = () => {
   const [products, setProducts] = useState([]);
   const [searchText, search] = useState("");
   const [cart, setCart] = useState([]);
+  const [cartLength, setCartLength] = useState(0);
 
   function addToCart(product, count) {
+    let productInCart = false;
     for (const el of cart) {
       if (el.product._id === product._id) {
         el.count += count;
-        return;
+        productInCart = true;
+        if (el.count <= 0) {
+          cart.splice(cart.indexOf(el), 1);
+        }
+        break;
       }
     }
-    cart.push({ product, count });
+    if (!productInCart && count > 0) {
+      cart.push({ product, count });
+    }
     setCart([...cart]);
   }
 
@@ -66,6 +74,14 @@ const App = () => {
     setProducts(goods);
   }, [goods]);
 
+  useEffect(() => {
+    let length = 0;
+    for (const el of cart) {
+      length += el.count;
+    }
+    setCartLength(length);
+  }, [cart])
+
   return (
     <Context.Provider
       value={{
@@ -83,7 +99,7 @@ const App = () => {
           setToken={setToken}
           setUser={setUser}
           likes={fav.length}
-          cart={cart.length}
+          cart={cartLength}
         />
         <div class="content-body">
           <Routes>
