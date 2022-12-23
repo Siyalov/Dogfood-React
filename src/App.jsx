@@ -128,7 +128,7 @@ const App = () => {
             <Route path={path + "profile"} element={<Profile user={user} />} />
             <Route
               path={path + "shoppingCart"}
-              element={<ShoppingCart cart={cart} />}
+              element={<ShoppingCart cart={cart} cartLength={cartLength} />}
             />
           </Routes>
         </div>

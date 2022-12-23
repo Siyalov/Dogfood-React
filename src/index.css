@@ -75,3 +75,7 @@ body.xmas {
 .h-wrapper * {
   width: 312px;
 }
+
+.centered {
+  text-align: center;
+}
