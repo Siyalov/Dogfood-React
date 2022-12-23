@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
+import { BoxArrowInRight, BoxArrowLeft } from "react-bootstrap-icons";
+import "./style.css";
 import { Link } from "react-router-dom";
 import Logo from "../Logo";
 import { Context } from "../../App";
-import { BoxArrowInRight, BoxArrowLeft } from "react-bootstrap-icons";
-import "./style.css";
 import { ReactComponent as FavIcon } from "./img/ic-favorites.svg";
 import { ReactComponent as CartIcon } from "./img/ic-cart.svg";
 import { ReactComponent as ProfileIcon } from "./img/ic-profile.svg";
@@ -11,12 +11,27 @@ import xmasTree from "./img/xmas-tree.png";
 import { useNavigate } from "react-router-dom";
 import { path } from "../../settings";
 
+/** @typedef {import('../../typings').Product} Product */
+/** @typedef {import('../../typings').NewProduct} NewProduct */
+/** @typedef {import('../../typings').User} User */
+/** @typedef {import('../../typings').UserAuthorization} UserAuthorization */
+
 let xmasAudioData = "";
 if (document.body.classList.contains("xmas")) {
   xmasAudioData = require("../../assets/xmas-audio").default;
 }
 
-export default ({
+/**
+ * @param {Object} opts
+ * @param {React.Dispatch<React.SetStateAction<Product[]>>} opts.update
+ * @param {React.Dispatch<React.SetStateAction<boolean>>} opts.openPopup
+ * @param {boolean} opts.user
+ * @param {React.Dispatch<React.SetStateAction<string>>} opts.setToken
+ * @param {React.Dispatch<React.SetStateAction<User>>} opts.setUser
+ * @param {number} opts.likes
+ * @param {number} opts.cart
+ */
+export default function Header({
   update,
   openPopup,
   user,
@@ -24,10 +39,12 @@ export default ({
   setUser,
   likes,
   cart,
-}) => {
+}) {
   const navigate = useNavigate();
+  // TODO: types
   const { searchText, search, setProducts, products } = useContext(Context);
   const [cnt, setCnt] = useState(0);
+  /** @type {React.ChangeEventHandler<HTMLInputElement>} */
   const handler = (e) => {
     search(e.target.value);
     const result = products.filter(
@@ -40,6 +57,7 @@ export default ({
       update(result);
     }
   };
+  /** @type {React.MouseEventHandler<HTMLAnchorElement>} */
   const logout = (e) => {
     e.preventDefault();
     localStorage.removeItem("shop-user");
@@ -116,7 +134,7 @@ export default ({
       <div>
         {searchText
           ? `По запросу ${searchText} найдено ${cnt} позиций`
-          : "Поиск..."}
+          : ""}
       </div>
     </>
   );

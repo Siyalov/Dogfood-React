@@ -2,7 +2,7 @@ import React from "react";
 import Logo from "../Logo";
 import "./style.css";
 
-export default () => {
+export default function Footer() {
   return (
     <footer>
       <Logo />

@@ -10,8 +10,20 @@ import {
   Button,
 } from "react-bootstrap";
 import { useParams } from "react-router-dom";
+import Api from "../Api";
 
-export default ({ api, addToCart }) => {
+/** @typedef {import('../typings').Product} Product */
+/** @typedef {import('../typings').NewProduct} NewProduct */
+/** @typedef {import('../typings').User} User */
+/** @typedef {import('../typings').UserAuthorization} UserAuthorization */
+
+/**
+ * @param {Object} opts
+ * @param {Api} opts.api
+ * @param {() => void} opts.addToCart
+ */
+export default function Product({ api, addToCart }) {
+  /** @type {[ Product, React.Dispatch<React.SetStateAction<Product>> ]} */
   const [product, setProduct] = useState({});
 
   const [cnt, setCnt] = useState(1);

@@ -3,8 +3,19 @@ import { Link } from "react-router-dom";
 import "./style.css";
 import { Heart, HeartFill } from "react-bootstrap-icons";
 import { path } from "../../settings";
+import Api from "../../Api";
 
-const Card = ({
+/** @typedef {import('../../typings').Product} Product */
+
+/**
+ * @param {Product & {
+ *  api: Api,
+ *  setFav: React.Dispatch<React.SetStateAction<Product[]>>,
+ *  userId: string,
+ *  addToCart: (product: Product, count: number) => void
+ * }} param0
+ */
+export default function Card({
   name,
   price,
   pictures,
@@ -15,7 +26,7 @@ const Card = ({
   discount,
   userId,
   addToCart,
-}) => {
+}) {
   const [like, setLike] = useState(false);
   const imgStyle = {
     backgroundImage: `url(${pictures})`,
@@ -26,6 +37,7 @@ const Card = ({
     }
   }, []);
 
+  /** @type {React.MouseEventHandler<HTMLSpanElement>} */
   const likeHandler = (e) => {
     e.stopPropagation();
     e.preventDefault();
@@ -66,5 +78,3 @@ const Card = ({
     </Link>
   );
 };
-
-export default Card;

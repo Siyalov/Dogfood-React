@@ -12,6 +12,16 @@ import { EmojiFrown } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import { path } from "../settings";
 
+/** @typedef {import('../typings').Product} Product */
+/** @typedef {import('../typings').NewProduct} NewProduct */
+/** @typedef {import('../typings').User} User */
+/** @typedef {import('../typings').UserAuthorization} UserAuthorization */
+
+/**
+ * @param {Object} opts
+ * @param {Array<{ product: Product, count: number }>} opts.cart
+ * @param {number} cartLength
+ */
 export default function ShoppingCart({ cart, cartLength }) {
   return (
     <>

@@ -1,7 +1,16 @@
 import React from "react";
 import { Container, Row, Col, Figure } from "react-bootstrap";
 
-export default ({ user }) => {
+/** @typedef {import('../typings').Product} Product */
+/** @typedef {import('../typings').NewProduct} NewProduct */
+/** @typedef {import('../typings').User} User */
+/** @typedef {import('../typings').UserAuthorization} UserAuthorization */
+
+/**
+ * @param {Object} opts
+ * @param {User} opts.user
+ */
+export default function Profile({ user }) {
   return (
     <Container>
       {user.name && (

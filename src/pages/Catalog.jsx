@@ -2,19 +2,33 @@ import React, { useContext, useState } from "react";
 import Card from "../components/Card";
 import AdCard from "../components/AdCard";
 import { Context } from "../App";
+import Api from "../Api";
 
-export default ({ goods, api, setFav, user, addToCart }) => {
+/** @typedef {import('../typings').Product} Product */
+/** @typedef {import('../typings').NewProduct} NewProduct */
+/** @typedef {import('../typings').User} User */
+/** @typedef {import('../typings').UserAuthorization} UserAuthorization */
+
+/**
+ * @param {Object} opts
+ * @param {Api} opts.api
+ * @param {Array<Product>} opts.goods
+ * @param {React.Dispatch<React.SetStateAction<Product[]>>} opts.setFav
+ * @param {User} opts.user
+ * @param {(product: Product, count: number) => void} opts.addToCart
+ */
+export default function Catalog({ goods, api, setFav, user, addToCart }) {
   const { searchText, products } = useContext(Context);
   return (
     <>
       <div className="cards-container">
         {goods?.length > 0 ? (
-          goods.map((d, i) => {
+          goods.map((product, index) => {
             return (
               <>
-                {i % 8 == 0 && !user?._id ? (
+                {index % 8 == 0 && !user?._id ? (
                   <AdCard
-                    key={"ad" + i}
+                    key={"ad" + index}
                     text={
                       <>
                         <h2>
@@ -22,10 +36,10 @@ export default ({ goods, api, setFav, user, addToCart }) => {
                           <br />
                           первый заказ!
                         </h2>
-                        <span>{d.name}</span>
+                        <span>{product.name}</span>
                       </>
                     }
-                    img={d.pictures}
+                    img={product.pictures}
                     cardColor={`rgba(${Math.random() * 256},${
                       Math.random() * 256
                     },${Math.random() * 256}, 0.6)`}
@@ -34,12 +48,12 @@ export default ({ goods, api, setFav, user, addToCart }) => {
                   ""
                 )}
                 <Card
-                  key={i}
-                  {...d}
+                  key={index}
+                  {...product}
                   api={api}
                   setFav={setFav}
                   userId={user?._id}
-                  addToCart={() => addToCart(d, 1)}
+                  addToCart={() => addToCart(product, 1)}
                 />
               </>
             );

@@ -5,7 +5,7 @@ import miniLogo from "./img/mini-logo.svg";
 import "./style.css";
 import { path } from "../../settings";
 
-export default () => {
+export default function Logo() {
   return (
     <Link className="logo" to={path}>
       <img src={logo} alt="Dog Food" className="full-logo" />

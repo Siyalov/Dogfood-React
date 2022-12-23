@@ -1,8 +1,22 @@
+/** @typedef {import('./typings').Product} Product */
+/** @typedef {import('./typings').NewProduct} NewProduct */
+/** @typedef {import('./typings').User} User */
+/** @typedef {import('./typings').UserAuthorization} UserAuthorization */
+
 class Api {
+  /**
+   * @param {string} token 
+   */
   constructor(token) {
     this.path = "https://api.react-learning.ru";
     this.token = token;
   }
+  /**
+   * @returns {Promise<{
+   *  products: Array<Product>,
+   *  total: number
+   * }>}
+   */
   getProducts() {
     return fetch(`${this.path}/products`, {
       method: "GET",
@@ -11,6 +25,10 @@ class Api {
       },
     }).then((res) => res.json());
   }
+  /**
+   * @param {string} id
+   * @returns {Promise<Product>}
+   */
   getProduct(id) {
     return fetch(`${this.path}/products/${id}`, {
       method: "GET",
@@ -19,6 +37,10 @@ class Api {
       },
     }).then((res) => res.json());
   }
+  /**
+   * @param {import('./typings').NewProduct} body
+   * @returns {Promise<Product>}
+   */
   addProduct(body) {
     return fetch(`${this.path}/products`, {
       method: "POST",
@@ -29,6 +51,11 @@ class Api {
       body: JSON.stringify(body),
     }).then((res) => res.json());
   }
+  /**
+   * @param {string} id
+   * @param {NewProduct} body
+   * @returns {Promise<Product>}
+   */
   updProduct(id, body) {
     return fetch(`${this.path}/products/${id}`, {
       method: "PATCH",
@@ -39,6 +66,10 @@ class Api {
       body: JSON.stringify(body),
     }).then((res) => res.json());
   }
+  /**
+   * @param {string} id 
+   * @returns {Promise<unknown>}
+   */
   delProduct(id) {
     return fetch(`${this.path}/products/${id}`, {
       method: "DELETE",
@@ -49,16 +80,9 @@ class Api {
   }
   /**
    * Authorization
-   * @param {{ email: string, password: string }} body
+   * @param {UserAuthorization} body
    * @returns {Promise<{
-   *   data: {
-   *     name: string,
-   *     about: string,
-   *     avatar: string,
-   *     _id: string,
-   *     email: string,
-   *     __v: number,
-   *   },
+   *   data: User,
    *   token: string
    * }>}
    */
@@ -72,6 +96,10 @@ class Api {
       body: JSON.stringify(body),
     }).then((res) => res.json());
   }
+  /**
+   * @param {UserAuthorization} body 
+   * @returns {Promise<unknown>}
+   */
   singUp(body) {
     return fetch(`${this.path}/signup`, {
       method: "POST",
@@ -81,6 +109,9 @@ class Api {
       body: JSON.stringify(body),
     }).then((res) => res.json());
   }
+  /**
+   * @returns {Promise<User>}
+   */
   showProfile() {
     return fetch(`${this.path}/v2/group-7/users/me`, {
       headers: {
@@ -88,6 +119,11 @@ class Api {
       },
     }).then((res) => res.json());
   }
+  /**
+   * @param {string} id
+   * @param {boolean} flag - поставить лайк (`true`) или снять (`false`)
+   * @returns {Promise<Product>}
+   */
   setLike(id, flag) {
     return fetch(`${this.path}/products/likes/${id}`, {
       method: flag ? "PUT" : "DELETE",

@@ -1,32 +1,49 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import Product from "./pages/Product";
-import Catalog from "./pages/Catalog";
-import ShoppingCart from "./pages/ShoppingCart";
+
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Modal from "./components/Modal";
-import Api from "./Api.js";
-import Local from "./Local";
+
+import Product from "./pages/Product";
+import Catalog from "./pages/Catalog";
+import ShoppingCart from "./pages/ShoppingCart";
 import Main from "./pages/Main";
 import Profile from "./pages/Profile";
-// import { Fan } from "react-bootstrap-icons";
+
+import Api from "./Api.js";
+import Local from "./Local";
 import { path, defaultToken } from "./settings";
 
 const Context = React.createContext({});
 
+/** @typedef {import('./typings').Product} Product */
+/** @typedef {import('./typings').NewProduct} NewProduct */
+/** @typedef {import('./typings').User} User */
+/** @typedef {import('./typings').UserAuthorization} UserAuthorization */
+
 const App = () => {
+  /** @type {[ Product[], React.Dispatch<React.SetStateAction<Product[]>> ]} */
   const [goods, setGoods] = useState([]);
+  /** @type {[ string, React.Dispatch<React.SetStateAction<string>> ]} */
   const [token, setToken] = useState(Local.getItem("shop-user"));
+  /** @type {[ User, React.Dispatch<React.SetStateAction<User>> ]} */
   const [user, setUser] = useState(Local.getItem("user", true));
+  /** @type {[ Product[], React.Dispatch<React.SetStateAction<Product[]>> ]} */
+  const [fav, setFav] = useState([]);
+  /** @type {[ Product[], React.Dispatch<React.SetStateAction<Product[]>> ]} */
+  const [products, setProducts] = useState([]);
+  /** @type {[ Array<{ product: Product, count: number }>, React.Dispatch<React.SetStateAction< Array<{ product: Product, count: number }> >> ]} */
+  const [cart, setCart] = useState([]);
+  const [searchText, search] = useState("");
+  const [cartLength, setCartLength] = useState(0);
   const [popupActive, changePopupActive] = useState(false);
   const [api, setApi] = useState(new Api(token || defaultToken));
-  const [fav, setFav] = useState([]);
-  const [products, setProducts] = useState([]);
-  const [searchText, search] = useState("");
-  const [cart, setCart] = useState([]);
-  const [cartLength, setCartLength] = useState(0);
 
+  /**
+   * @param {Product} product 
+   * @param {number} count 
+   */
   function addToCart(product, count) {
     let productInCart = false;
     for (const el of cart) {
