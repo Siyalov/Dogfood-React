@@ -2,6 +2,7 @@
 /** @typedef {import('./typings').NewProduct} NewProduct */
 /** @typedef {import('./typings').User} User */
 /** @typedef {import('./typings').UserAuthorization} UserAuthorization */
+/** @typedef {import('./typings').Review} Review */
 
 class Api {
   /**
@@ -130,6 +131,57 @@ class Api {
       headers: {
         Authorization: `Bearer ${this.token}`,
       },
+    }).then((res) => res.json());
+  }
+  /**
+   * @param {string} productId
+   * @returns {Promise<Array<Review>>}
+   */
+  getProductReviews(productId) {
+    return fetch(`${this.path}/products/review/${productId}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+    }).then((res) => res.json());
+  }
+  /**
+   * @returns {Promise<Array<Review>>}
+   */
+  getAllReviews() {
+    return fetch(`${this.path}/products/review/`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+    }).then((res) => res.json());
+  }
+  /**
+   * @param {string} productId
+   * @param {string} reviewId
+   * @returns {Promise<unknown>}
+   */
+  deleteProductReview(productId, reviewId) {
+    return fetch(`${this.path}/products/review/${productId}/${reviewId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+    }).then((res) => res.json());
+  }
+  /**
+   * @param {string} productId
+   * @param {Review} review
+   * @returns {Promise<unknown>}
+   */
+  addProductReview(productId, review) {
+    return fetch(`${this.path}/products/review/${productId}`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(review),
     }).then((res) => res.json());
   }
 }
