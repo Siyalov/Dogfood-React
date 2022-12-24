@@ -1,8 +1,7 @@
 import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
-import { useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import {
+  Alert,
   Container,
   Row,
   Col,
@@ -11,13 +10,30 @@ import {
   ButtonGroup,
   Button,
 } from "react-bootstrap";
-import { EmojiFrown, Trash } from "react-bootstrap-icons";
+import { EmojiFrown, Trash, Truck } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import { Context } from "../App";
 import { path } from "../settings";
 
 export default function ShoppingCart() {
   const { cart, cartLength, addToCart } = useContext(Context);
+
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalDiscount, setTotalDiscount] = useState(0);
+
+  useEffect(() => {
+    let price = 0;
+    let discount = 0;
+    for (const el of cart) {
+      price += el.product.price * el.count;
+      discount += Math.floor(
+        (el.product.price * el.count * el.product.discount) / 100
+      );
+    }
+    setTotalPrice(price);
+    setTotalDiscount(discount);
+  }, [cart]);
+
   return (
     <>
       <Container>
@@ -91,16 +107,18 @@ export default function ShoppingCart() {
                         {el.product.discount ? (
                           <>
                             <del className="text-dark">
-                              {el.count * el.product.price}{" "}₽
+                              {el.count * el.product.price} ₽
                             </del>
-                            <br/>
+                            <br />
                             <strong
                               className={
-                                el.product.discount ? "text-danger" : "text-dark"
+                                el.product.discount
+                                  ? "text-danger"
+                                  : "text-dark"
                               }
                             >
                               {el.count *
-                                Math.ceil(Z
+                                Math.ceil(
                                   el.product.price *
                                     ((100 - el.product.discount) / 100)
                                 )}{" "}
@@ -109,7 +127,7 @@ export default function ShoppingCart() {
                           </>
                         ) : (
                           <strong className="text-dark">
-                            {el.count * el.product.price}{" "}₽
+                            {el.count * el.product.price} ₽
                           </strong>
                         )}
                       </div>
@@ -126,37 +144,78 @@ export default function ShoppingCart() {
                   </Row>
                 ))}
               </Col>
-              <Col xs={12} lg={4} style={{ borderRadius: 8, boxShadow: 'grey 0 0 10px' }}>
+              <Col xs={12} lg={4}>
                 <Row>
-                  <Col xs={12} className="padding-top">                    
-                   <h3><b>Ваша корзина</b></h3>
-                  </Col>
-                </Row>
-                <Row className="padding-top">
-                  <Col xs={6}>Товары</Col>
-                  <Col xs={6} className="right-align">{}3925</Col>
-                </Row>
-                <Row className="padding-top">
-                  <Col xs={6}>Скидка</Col>
-                  <Col xs={6} className="right-align"style={{color:"red"}}>{}-690</Col>
-                </Row>
+                  <Col
+                    xs={12}
+                    style={{ borderRadius: 8, boxShadow: "grey 0 0 10px" }}
+                  >
+                    <Row>
+                      <Col xs={12} className="padding-top">
+                        <h3>
+                          <b>Ваша корзина</b>
+                        </h3>
+                      </Col>
+                    </Row>
+                    <Row className="padding-top">
+                      <Col xs={6}>Товары</Col>
+                      <Col xs={6} className="right-align">
+                        {totalPrice} ₽
+                      </Col>
+                    </Row>
+                    <Row className="padding-top">
+                      <Col xs={6}>Скидка</Col>
+                      <Col
+                        xs={6}
+                        className="right-align"
+                        style={{ color: "red" }}
+                      >
+                        {-totalDiscount} ₽
+                      </Col>
+                    </Row>
 
-                <hr/>
-                <Row>
-                  <Col xs={6}><b>Общая стоимость</b></Col>
-                  <Col xs={6} className="right-align"><b>3235{}</b></Col>
-                </Row>
-                <Row>
-                  <Col xs={12} className="padding-top padding-bottom">
-                    <Button
-                      size="sm"
-                      variant="warning"
-                      className="width100"
-                      onClick={() => addToCart(product, cnt)}
-                    >
-                      Оформить заказ
-                    </Button>
+                    <hr />
+                    <Row>
+                      <Col xs={6}>
+                        <b>Общая стоимость</b>
+                      </Col>
+                      <Col xs={6} className="right-align">
+                        <b>{totalPrice - totalDiscount} ₽</b>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col xs={12} className="padding-top padding-bottom">
+                        <Button
+                          size="sm"
+                          variant="warning"
+                          className="width100"
+                        >
+                          Оформить заказ
+                        </Button>
+                      </Col>
+                    </Row>
                   </Col>
+                  <Alert variant="secondary" className="mt-3">
+                    <Row>
+                      <Col xs={2}>
+                        <Truck />
+                      </Col>
+                      <Col xs={10}>
+                        {" "}
+                        <small>
+                          <b>Доставка по всему миру!</b>
+                        </small>
+                        <br />
+                        <small>
+                          Доставка курьером - <b>от 399 ₽</b>
+                        </small>
+                        <br />
+                        <small>
+                          Доставка в пункт выдачи - <b>от 199 ₽</b>
+                        </small>
+                      </Col>
+                    </Row>
+                  </Alert>
                 </Row>
               </Col>
             </>
