@@ -1,4 +1,6 @@
 import React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 import { useContext } from "react";
 import {
   Container,
@@ -9,13 +11,13 @@ import {
   ButtonGroup,
   Button,
 } from "react-bootstrap";
-import { EmojiFrown } from "react-bootstrap-icons";
+import { EmojiFrown, Trash } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import { Context } from "../App";
 import { path } from "../settings";
 
 export default function ShoppingCart() {
-  const { cart, cartLength } = useContext(Context);
+  const { cart, cartLength, addToCart } = useContext(Context);
   return (
     <>
       <Container>
@@ -51,12 +53,113 @@ export default function ShoppingCart() {
               </div>
             </Col>
           ) : (
-            cart.map((el) => (
-              <div>
-                {el.product.name}
-                {el.count}
-              </div>
-            ))
+            <>
+              <Col xs={12} lg={8}>
+                {cart.map((el) => (
+                  <Row>
+                    <Col xs={1}>
+                      <Figure>
+                        <Figure.Image src={el.product.pictures} />
+                      </Figure>
+                    </Col>
+                    <Col xs={4}>{el.product.name}</Col>
+                    <Col xs={3}>
+                      <ButtonGroup>
+                        <Button
+                          size="sm"
+                          variant="light"
+                          disabled={!el.count}
+                          onClick={(e) => addToCart(el.product, -1)}
+                        >
+                          -
+                        </Button>
+                        <Button size="sm" variant="light" disabled>
+                          {el.count}
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="light"
+                          onClick={(e) => addToCart(el.product, 1)}
+                        >
+                          +
+                        </Button>
+                      </ButtonGroup>
+                    </Col>
+
+                    <Col xs={2}>
+                      <div>
+                        {el.product.discount ? (
+                          <>
+                            <del className="text-dark">
+                              {el.count * el.product.price}{" "}₽
+                            </del>
+                            <br/>
+                            <strong
+                              className={
+                                el.product.discount ? "text-danger" : "text-dark"
+                              }
+                            >
+                              {el.count *
+                                Math.ceil(Z
+                                  el.product.price *
+                                    ((100 - el.product.discount) / 100)
+                                )}{" "}
+                              ₽
+                            </strong>
+                          </>
+                        ) : (
+                          <strong className="text-dark">
+                            {el.count * el.product.price}{" "}₽
+                          </strong>
+                        )}
+                      </div>
+                    </Col>
+                    <Col xs={1}>
+                      <Button
+                        size="sm"
+                        variant="warning"
+                        onClick={() => addToCart(el.product, -el.count)}
+                      >
+                        <Trash />
+                      </Button>
+                    </Col>
+                  </Row>
+                ))}
+              </Col>
+              <Col xs={12} lg={4} style={{ borderRadius: 8, boxShadow: 'grey 0 0 10px' }}>
+                <Row>
+                  <Col xs={12} className="padding-top">                    
+                   <h3><b>Ваша корзина</b></h3>
+                  </Col>
+                </Row>
+                <Row className="padding-top">
+                  <Col xs={6}>Товары</Col>
+                  <Col xs={6} className="right-align">{}3925</Col>
+                </Row>
+                <Row className="padding-top">
+                  <Col xs={6}>Скидка</Col>
+                  <Col xs={6} className="right-align"style={{color:"red"}}>{}-690</Col>
+                </Row>
+
+                <hr/>
+                <Row>
+                  <Col xs={6}><b>Общая стоимость</b></Col>
+                  <Col xs={6} className="right-align"><b>3235{}</b></Col>
+                </Row>
+                <Row>
+                  <Col xs={12} className="padding-top padding-bottom">
+                    <Button
+                      size="sm"
+                      variant="warning"
+                      className="width100"
+                      onClick={() => addToCart(product, cnt)}
+                    >
+                      Оформить заказ
+                    </Button>
+                  </Col>
+                </Row>
+              </Col>
+            </>
           )}
         </Row>
       </Container>

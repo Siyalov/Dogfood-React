@@ -79,3 +79,17 @@ body.xmas {
 .centered {
   text-align: center;
 }
+
+.padding-top {
+  padding-top: 8px;
+}
+
+.padding-bottom {
+  padding-bottom: 8px;
+}
+.right-align {
+  text-align: right;
+}
+.width100 {
+  width: 100%;
+}
