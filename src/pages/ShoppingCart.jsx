@@ -207,11 +207,11 @@ export default function ShoppingCart() {
                         </small>
                         <br />
                         <small>
-                          Доставка курьером - <b>от 399 ₽</b>
+                          Доставка курьером - <b>от 399 &nbsp;₽</b>
                         </small>
                         <br />
                         <small>
-                          Доставка в пункт выдачи - <b>от 199 ₽</b>
+                          Доставка в пункт выдачи - <b>от 199&nbsp;₽</b>
                         </small>
                       </Col>
                     </Row>

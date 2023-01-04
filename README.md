@@ -24,3 +24,35 @@
     ```bash
     npm start
     ```
+## Скриншоты:
+
+### Реклама (если user не авторизирован)
+![Add](docs/Add.png)
+
+### Товары
+![Main](docs/Main.png)
+
+
+### Профиль
+![Profile](docs/Profile.png)
+
+### Корзина
+![ShoppingCart](docs/ShoppingCart.png)
+
+### Любимые продукты
+![Favorites](docs/Favorites.png)
+
+### Мобильная версия реклама (если user не авторизирован)
+![MobilAdd](docs/MobilAdd.jpg)
+
+### Мобильная версия (Товары) 
+![MobilMain](docs/MobilMain.jpg)
+
+### Мобильная версия (Профиль) 
+![MobilProfile](docs/MobilProfile.jpg)
+
+### Мобильная версия (Корзина) 
+![MobilShoppingCart](docs/MobilShoppingCart.jpg)
+
+### Мобильная версия (Любимые продукты)
+![MobilFavorites](docs/MobilFavorites.jpg)
