@@ -17,7 +17,7 @@ export interface UserAuthorization {
 }
 
 export interface Review {
-  author: string
+  author: User
   /** Формат: 2022-03-12T10:37:00.464Z */
   created_at: string
   product: string

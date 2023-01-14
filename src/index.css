@@ -93,3 +93,11 @@ body.xmas {
 .width100 {
   width: 100%;
 }
+
+.product-review {
+  border-top: 1px solid #aaa;
+  margin: 8px 0;
+}
+.product__like {
+  margin-top: 8px;
+}

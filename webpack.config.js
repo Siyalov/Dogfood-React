@@ -10,7 +10,7 @@ module.exports = {
   },
   devServer: {
     static: path.resolve(__dirname, "./docs"),
-    port: 3000,
+    port: 3002,
     open: true,
     hot: true,
     historyApiFallback: true,

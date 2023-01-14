@@ -8,22 +8,55 @@ import {
   Table,
   ButtonGroup,
   Button,
+  Alert,
 } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { Context } from "../App";
+import { StarFill, Star, HeartFill, Heart, Truck } from 'react-bootstrap-icons'
+
+/** @typedef {import('../typings').Product} Product */
+/** @typedef {import('../typings').Review} Review */
 
 export default function Product() {
-  const { api, addToCart } = useContext(Context);
+  const { api, addToCart, setFavorites, user } = useContext(Context);
 
   /** @type {[ Product, React.Dispatch<React.SetStateAction<Product>> ]} */
   const [product, setProduct] = useState({});
+  /** @type {[ Review[], React.Dispatch<React.SetStateAction<Review[]>> ]} */
+  const [productReviews, setProductReviews] = useState([]);
 
   const [cnt, setCnt] = useState(1);
+  const [like, setLike] = useState(false);
+  useEffect(() => {
+    if (product?.likes?.includes(user._id)) {
+      setLike(true);
+    }
+  }, []);
   let params = useParams();
+
+  /** @type {React.MouseEventHandler<HTMLSpanElement>} */
+  const likeHandler = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    setLike(!like);
+    api.setLike(product._id, !like).then((data) => {
+      if (!like) {
+        setFavorites((prev) => {
+          return [...prev, data];
+        });
+      } else {
+        setFavorites((prev) => prev.filter((el) => el._id !== product._id));
+      }
+    });
+  };
+
 
   useEffect(() => {
     api.getProduct(params.id).then((data) => {
       setProduct(data);
+    });
+    api.getProductReviews(params.id).then((data) => {
+      setProductReviews(data);
     });
   }, []);
 
@@ -91,6 +124,38 @@ export default function Product() {
                 </Button>
               </Col>
             </Row>
+            <Row>
+              <Col>
+                <div className="product__like" onClick={likeHandler}>
+                  {like ? [<HeartFill color="red" />, ' Убрать из избранного'] : [<Heart color="red" />, ' Добавить в избранное']}
+                </div>
+              </Col>
+            </Row>  
+            <Row>
+              <Col>
+              <Alert variant="secondary" className="mt-3">
+                    <Row>
+                      <Col xs={2}>
+                        <Truck />
+                      </Col>
+                      <Col xs={10}>
+                        {" "}
+                        <small>
+                          <b>Доставка по всему миру!</b>
+                        </small>
+                        <br />
+                        <small>
+                          Доставка курьером - <b>от 399 &nbsp;₽</b>
+                        </small>
+                        <br />
+                        <small>
+                          Доставка в пункт выдачи - <b>от 199&nbsp;₽</b>
+                        </small>
+                      </Col>
+                    </Row>
+                  </Alert>
+              </Col>
+            </Row>
           </Col>
           <Col xs={12}>
             <h2>Описание</h2>
@@ -117,6 +182,25 @@ export default function Product() {
           </Col>
           <Col xs={12}>
             <h2>Отзывы</h2>
+            <Row>
+              <Col>
+                {
+                  productReviews.map(review => (
+                    <div className="product-review">
+                      <div>
+                        <b>{review.author.name}</b>{" "}
+                        {new Date(review.created_at).toLocaleString()}
+                      </div>
+                      <div>
+                        {new Array(review.rating).fill(<StarFill color="orange" />)}
+                        {new Array(5 - review.rating).fill(<Star color="orange" />)}
+                      </div>
+                      <div>{review.text}</div>
+                    </div>
+                  ))
+                }
+              </Col>
+            </Row>
           </Col>
         </Row>
       )}
