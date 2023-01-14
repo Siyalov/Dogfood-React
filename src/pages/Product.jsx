@@ -22,8 +22,8 @@ export default function Product() {
 
   /** @type {[ Product, React.Dispatch<React.SetStateAction<Product>> ]} */
   const [product, setProduct] = useState({});
-  /** @type {[ Review[], React.Dispatch<React.SetStateAction<Review[]>> ]} */
-  const [productReviews, setProductReviews] = useState([]);
+  // /** @type {[ Review[], React.Dispatch<React.SetStateAction<Review[]>> ]} */
+  // const [productReviews, setProductReviews] = useState([]);
 
   const [cnt, setCnt] = useState(1);
   const [like, setLike] = useState(false);
@@ -55,9 +55,9 @@ export default function Product() {
     api.getProduct(params.id).then((data) => {
       setProduct(data);
     });
-    api.getProductReviews(params.id).then((data) => {
-      setProductReviews(data);
-    });
+    // api.getProductReviews(params.id).then((data) => {
+    //   setProductReviews(data);
+    // });
   }, []);
 
   return (
@@ -184,8 +184,8 @@ export default function Product() {
             <h2>Отзывы</h2>
             <Row>
               <Col>
-                {
-                  productReviews.map(review => (
+                { product.reviews.length > 0 ?
+                  product.reviews.map(review => (
                     <div className="product-review">
                       <div>
                         <b>{review.author.name}</b>{" "}
@@ -198,6 +198,7 @@ export default function Product() {
                       <div>{review.text}</div>
                     </div>
                   ))
+                  : 'Отзывов пока нет.'
                 }
               </Col>
             </Row>
